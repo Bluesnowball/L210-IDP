@@ -4,25 +4,48 @@ using namespace std;
 #include <robot_link.h>
 #define ROBOT_NUM 10   // The id number (see below)
 robot_link rlink;      // datatype for the robot link
+void straightRun(int speed);
+void reverse(int speed);
+void veer(bool left, int speed);
+void sharpturn(bool left, int speed);
 
 int main ()
-{
-int val;                              // data from microprocessor
+{                          // data from microprocessor
 if (!rlink.initialise (ROBOT_NUM)) { // setup the link
   cout << "Cannot initialise link" << endl;
   rlink.print_errs("  ");
-  return -1;
+  return -1;               // error, finish
 }
-val = rlink.request (TEST_INSTRUCTION); // send test instruction
-if (val == TEST_INSTRUCTION_RESULT) {   // check result
-  cout << "Test passed" << endl;
-  return 0;                            // all OK, finish
+
+rlink.command (STOP_IF_HIGH, 0x05);
+rlink.command (STOP_SELECT, 3);
+rlink.command (RAMP_TIME, 255);
+rlink.command(BOTH_MOTORS_GO_SAME, 127);
+delay(2000);
+delay(2000);
+float stat = rlink.request (STATUS);
+cout<<stat;
+rlink.command(BOTH_MOTORS_GO_OPPOSITE, 127);
+delay(2000);
+delay(2000);
 }
-else if (val == REQUEST_ERROR) {
-  cout << "Fatal errors on link:" << endl;
-  rlink.print_errs();
+
+void straightRun(int speed){
+rlink.command (RAMP_TIME, 255);
+rlink.command(BOTH_MOTORS_GO_SAME, speed);
 }
-else
-  cout << "Test failed (bad value returned)" << endl;
-return -1;                          // error, finish
+
+void reverse(int speed){
+rlink.command (RAMP_TIME, 255);
+rlink.command(BOTH_MOTORS_GO_SAME, 128+speed);  
+}
+
+void veer(bool left, int speed){
+if (left) rlink.command(MOTOR_2_GO, 127-speed);
+else rlink.command(MOTOR_2_GO, 127-speed);
+}
+
+void sharpturn(bool left, int speed){
+if (left) rlink.command(BOTH_MOTORS_GO_OPPOSITE, speed);
+else rlink.command(BOTH_MOTORS_GO_OPPOSITE, 128+speed);
 }
