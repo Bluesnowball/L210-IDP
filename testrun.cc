@@ -2,16 +2,17 @@
 using namespace std;
 #include <robot_instr.h>
 #include <robot_link.h>
-#define ROBOT_NUM 10   // The id number (see below)
-robot_link rlink;      // datatype for the robot link
-void straightRun(int speed), reverse(int speed), veer(bool left, int speed), sharpturn(bool left, int speed), stop;
+#include <robot_delay.h>
+#define ROBOT_NUM 10 // The id number (see below)
+robot_link rlink; // datatype for the robot link
+void straightRun(int speed), reverse(int speed), veer(bool left, int speed), sharpturn(bool left, int speed), stop();
 
 int main ()
-{                          // data from microprocessor
+{ // data from microprocessor
 if (!rlink.initialise (ROBOT_NUM)) { // setup the link
   cout << "Cannot initialise link" << endl;
-  rlink.print_errs("  ");
-  return -1;               // error, finish
+  rlink.print_errs(" ");
+  return -1; // error, finish
 }
 
 straightRun(127);
@@ -22,7 +23,7 @@ veer(true, 50);
 delay(5000);
 sharpturn(false, 127);
 delay(2500);
-stop;
+stop();
 }
 
 void straightRun(int speed){
@@ -32,7 +33,7 @@ rlink.command(BOTH_MOTORS_GO_SAME, speed);
 
 void reverse(int speed){
 rlink.command (RAMP_TIME, 255);
-rlink.command(BOTH_MOTORS_GO_SAME, 128+speed);  
+rlink.command(BOTH_MOTORS_GO_SAME, 128+speed);
 }
 
 void veer(bool left, int speed){
@@ -45,6 +46,6 @@ if (left) rlink.command(BOTH_MOTORS_GO_OPPOSITE, speed);
 else rlink.command(BOTH_MOTORS_GO_OPPOSITE, 128+speed);
 }
 
-void stopMoving{
+void stop(){
 rlink.command(BOTH_MOTORS_GO_SAME, 0);
 }
