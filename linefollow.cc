@@ -26,26 +26,27 @@ int main ()
   rlink.print_errs(" ");
   return -1; // error, finish
 }
-
+// get some input from the sensors
+// call decide() with the sensor input
 
 }
 
 void decide(int sensors) {
 	static int prev = sensors; // holds the previous position of the line follower
 	switch (sensors) {
-		case 8*0+4*1+2*1+1*0:
+		case 8*0+4*1+2*1+1*0:  // central sensors detect a line
 		straightRun(MAXSPEED);
 		prev = sensors;
 		break;
 		
-		case 8*0+4*0+2*0+1*0:
+		case 8*0+4*0+2*0+1*0: // no line detected
 		stop();
 		cout << "Lost the line" << endl;
 		decide(prev);
 		break;
 		
-		case 8*0+4*0+2*0+1*1:
-		veer(LEFT, MAXSPEED);
+		case 8*0+4*0+2*0+1*1: // rightmost sensor only
+		veer(RIGHT, MAXSPEED);
 		prev = sensors;
 		break;
 		
@@ -54,37 +55,32 @@ void decide(int sensors) {
 		decide(prev);
 		break;
 		
-		case 8*0+4*0+2*1+1*1:
+		case 8*0+4*0+2*1+1*1: // 2 sensors on the right - probably veering off the line
+		veer(RIGHT, 50);
+		prev = sensors;
+		break;
+		
+		case 8*0+4*1+2*1+1*1: // 3 sensors on the right - probably at an angle
+		swivel(RIGHT, 50);
+		prev = sensors;
+		break;
+		
+		case 8*1+4*0+2*0+1*0: // leftmost sensor only
+		veer(LEFT, MAXSPEED);
+		prev = sensors;
+		break;
+		
+		case 8*1+4*1+2*0+1*0: // 2 sensors on left
 		veer(LEFT, 50);
 		prev = sensors;
 		break;
 		
-		case 8*0+4*1+2*1+1*1:
-		veer(RIGHT, 50);
+		case 8*1+4*1+2*1+1*0: // 3 sensors on left - probs at an angle
+		swivel(LEFT, 50);
 		prev = sensors;
 		break;
 		
-		case 8*0+4*1+2*1+1*1:
-		swivel(RIGHT, 50);
-		prev = sensors;
-		break;
-		
-		case 8*1+4*0+2*0+1*0:
-		veer(RIGHT, MAXSPEED);
-		prev = sensors;
-		break;
-		
-		case 8*1+4*1+2*0+1*0:
-		veer(RIGHT, 50);
-		prev = sensors;
-		break;
-		
-		case 8*1+4*1+2*1+1*0:
-		swivel(RIGHT, 50);
-		prev = sensors;
-		break;
-		
-		case 8*1+4*1+2*1+1*1:
+		case 8*1+4*1+2*1+1*1: // at a junction
 		cout << "Junction detected!"
 		junct = true;
 		junct_count++;
