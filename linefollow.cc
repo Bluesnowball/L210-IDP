@@ -32,8 +32,10 @@ int main ()
 }
 
 void decide(int sensors) {
+	//obviously Values need testing
 	static int prev = sensors; // holds the previous position of the line follower
 	switch (sensors) {
+		//Need to check which sensors are meant to be on the line, and whetherline is on or off.
 		case 8*0+4*1+2*1+1*0:  // central sensors detect a line
 		straightRun(MAXSPEED);
 		prev = sensors;
@@ -54,6 +56,7 @@ void decide(int sensors) {
 		cout << "wtf?" << endl;
 		decide(prev);
 		break;
+		//Some of these depend on how far apart the sesnors are on whether they are WTF or not. Needs Examining.
 		
 		case 8*0+4*0+2*1+1*1: // 2 sensors on the right - probably veering off the line
 		veer(RIGHT, 50);
