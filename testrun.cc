@@ -5,7 +5,7 @@ using namespace std;
 #include <robot_delay.h>
 #define ROBOT_NUM 10 // The id number (see below)
 robot_link rlink; // datatype for the robot link
-void straightRun(int speed), reverse(int speed), veer(bool left, int speed), sharpturn(bool left, int speed), stop();
+void straightRun(int speed), reverse(int speed), veer(bool left, int speed), swivel(bool left, int speed), stop();
 
 int main ()
 { // data from microprocessor
@@ -41,7 +41,7 @@ if (left) rlink.command(MOTOR_2_GO, 127-speed);
 else rlink.command(MOTOR_2_GO, 127-speed);
 }
 
-void sharpturn(bool left, int speed){
+void swivel(bool left, int speed){
 if (left) rlink.command(BOTH_MOTORS_GO_OPPOSITE, speed);
 else rlink.command(BOTH_MOTORS_GO_OPPOSITE, 128+speed);
 }
