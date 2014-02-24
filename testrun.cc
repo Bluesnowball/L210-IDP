@@ -10,6 +10,7 @@ using namespace std;
 #define RIGHT 1
 robot_link rlink; // datatype for the robot link
 void straightRun(int speed), reverse(int speed), veer(bool right, int speed), swivel(bool right, int speed), stop();
+void tests(int go);
 
 int main ()
 { // data from microprocessor
@@ -22,6 +23,8 @@ int go=0;
 while (go==0){
 cin>>go;
 }
+
+void tests (int go) {
 switch (go) {
 	case 1:
 	straightRun(MAXSPEED);
@@ -73,6 +76,15 @@ switch (go) {
 	rlink.command(MOTOR_3_GO, MAXSPEED);
 	delay(5000);
 	break;
+	
+	case 11:  // line following
+	// get sensor input, learn how to do this with the simulator, give it variable int input
+	cout << input << endl;
+	decide(input);
+	delay(300);
+	tests(11);
+	break;
+}
 }
 //float stat = rlink.request (STATUS);
 //cout<<stat;
