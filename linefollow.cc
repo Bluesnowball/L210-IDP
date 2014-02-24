@@ -6,9 +6,6 @@ using namespace std;
 #include <stopwatch.h>
 #include <header.h>
 #define ROBOT_NUM 10 // The id number (see below)
-#define LEFT 1
-#define RIGHT 0
-#define MAXSPEED 126
 robot_link rlink; // datatype for the robot link
 
 bool junct;
