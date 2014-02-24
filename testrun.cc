@@ -3,6 +3,7 @@ using namespace std;
 #include <robot_instr.h>
 #include <robot_link.h>
 #include <robot_delay.h>
+#include <header.h>
 #define ROBOT_NUM 10 // The id number (see below)
 #define MAXSPEED 127
 #define LEFT 0
