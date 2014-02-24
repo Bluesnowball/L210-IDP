@@ -19,4 +19,6 @@ void reverse(int speed);
 void veer(bool right, int speed);
 void sharpturn(bool right, int speed);
 void stop();
+void tests(int go);
+void decide (int sensors);
 
