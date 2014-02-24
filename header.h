@@ -8,12 +8,15 @@
 using namespace std;
 
 #define ROBOT_NUM 10
+#define LEFT 0
+#define RIGHT 0
+#define MAXSPEED 127
 
 extern robot_link rlink;
 
 void straightRun(int speed);
 void reverse(int speed);
-void veer(bool left, int speed);
-void sharpturn(bool left, int speed);
+void veer(bool right, int speed);
+void sharpturn(bool right, int speed);
 void stop();
 
