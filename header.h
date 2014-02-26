@@ -7,9 +7,11 @@
 #include <stopwatch.h>
 using namespace std;
 
-#define ROBOT_NUM 10
+#define ROBOT_NUM 10  // connects to the right robot
 #define LEFT 0
 #define RIGHT 1
+#define FORWARD 2
+#define BACK 3
 #define MAXSPEED 127
 #define REVERSE 255
 
@@ -19,4 +21,4 @@ void veer(bool right, int speed);
 void swivel(bool right, int speed);
 void stop();
 void tests(int go);
-void decide (int sensors);
+void decide (int sensors);  // line following
