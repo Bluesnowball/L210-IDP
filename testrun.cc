@@ -90,14 +90,8 @@ rlink.command(BOTH_MOTORS_GO_OPPOSITE, 128+speed);
 }
 
 void veer(bool right, int speed){
-if (right) {
-rlink.command(MOTOR_1_GO, 128+MAXSPEED);
-rlink.command(MOTOR_2_GO, MAXSPEED-speed);
- }
-else {
-rlink.command(MOTOR_1_GO, 255-speed);
-rlink.command(MOTOR_2_GO, MAXSPEED);
- }
+rlink.command(MOTOR_1_GO, 255-speed*(!right));
+rlink.command(MOTOR_2_GO, MAXSPEED-speed*right);
 }
 
 void swivel(bool right, int speed){
