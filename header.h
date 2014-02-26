@@ -9,16 +9,14 @@ using namespace std;
 
 #define ROBOT_NUM 10
 #define LEFT 0
-#define RIGHT 0
+#define RIGHT 1
 #define MAXSPEED 127
 
-extern robot_link rlink;
-
+void initialise();
 void straightRun(int speed);
 void reverse(int speed);
 void veer(bool right, int speed);
-void sharpturn(bool right, int speed);
+void swivel(bool right, int speed);
 void stop();
 void tests(int go);
 void decide (int sensors);
-
