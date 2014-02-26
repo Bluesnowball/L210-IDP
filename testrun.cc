@@ -84,17 +84,17 @@ void initialise() {
 }
 }
 
-void straightRun(int speed){
+void straightRun(int speed){	// goes straight ahead or back
 rlink.command (RAMP_TIME, 255);
 rlink.command(BOTH_MOTORS_GO_OPPOSITE, 128+speed);
 }
 
-void veer(bool right, int speed){
+void veer(bool right, int speed){ // curves the robot while moving
 rlink.command(MOTOR_1_GO, 255-speed*(!right));
 rlink.command(MOTOR_2_GO, MAXSPEED-speed*right);
 }
 
-void swivel(bool right, int speed){
+void swivel(bool right, int speed){	// curves the robot while stationary
 if (right) rlink.command(BOTH_MOTORS_GO_SAME, 128+speed);
 else rlink.command(BOTH_MOTORS_GO_SAME, speed);
 }
