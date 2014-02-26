@@ -17,7 +17,7 @@ delay(7000);
 break;
 
 case 2:
-reverse(MAXSPEED);
+straightRun(REVERSE);
 delay(7000);
 break;
 
@@ -87,11 +87,6 @@ void initialise() {
 void straightRun(int speed){
 rlink.command (RAMP_TIME, 255);
 rlink.command(BOTH_MOTORS_GO_OPPOSITE, 128+speed);
-}
-
-void reverse(int speed){
-rlink.command (RAMP_TIME, 255);
-rlink.command(BOTH_MOTORS_GO_OPPOSITE, speed);
 }
 
 void veer(bool right, int speed){
