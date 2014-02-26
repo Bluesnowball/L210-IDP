@@ -11,10 +11,10 @@ using namespace std;
 #define LEFT 0
 #define RIGHT 1
 #define MAXSPEED 127
+#define REVERSE 255
 
 void initialise();
 void straightRun(int speed);
-void reverse(int speed);
 void veer(bool right, int speed);
 void swivel(bool right, int speed);
 void stop();
