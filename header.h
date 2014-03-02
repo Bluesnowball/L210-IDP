@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include <robot_instr.h>
 #include <robot_link.h>
 #include <delay.h>
@@ -15,6 +16,12 @@ using namespace std;
 #define MAXSPEED 127
 #define REVERSE 255
 
+class NavInstructions{
+ public:
+  string name:
+  int Indicator:
+  vector<int> Instruct:
+  vector<int> Loc: };
 void initialise();
 void straightRun(int speed);
 void veer(bool right, int speed);
