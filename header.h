@@ -31,3 +31,4 @@ void tests(int go);
 void decide (int sensors);
 void Crossroads(int junct_count);
 int readLF();
+NavInstructions MarcoPolo(Stype int);
