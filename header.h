@@ -34,7 +34,7 @@ int readLF();
 NavInstructions MarcoPolo(Stype int);
 int Identify();
 void Manipulate();
-void RaiseLever()
-void LowerLever()
-void OpenClamp()
-void CloseClamp()
+void RaiseLever();
+void LowerLever();
+void OpenClamp();
+void CloseClamp();
