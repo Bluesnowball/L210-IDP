@@ -33,7 +33,7 @@ void Crossroads(int junct_count);
 int readLF();
 NavInstructions MarcoPolo(int Stype);
 int Identify();
-void Manipulate(bool movement);
+void Manipulate(bool pickup);
 void RaiseLever();
 void LowerLever();
 void OpenClamp();
