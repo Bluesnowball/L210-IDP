@@ -32,3 +32,5 @@ void decide (int sensors);
 void Crossroads(int junct_count);
 int readLF();
 NavInstructions MarcoPolo(Stype int);
+int Identify();
+void Manipulate();
