@@ -38,3 +38,6 @@ void RaiseLever();
 void LowerLever();
 void OpenClamp();
 void CloseClamp();
+void Lost();
+void ProfligateNavigate(NavInstructions Instr);
+void Advance();
