@@ -42,3 +42,33 @@ return rlink.request(READ_PORT_5);
 void stop(){
 rlink.command(BOTH_MOTORS_GO_SAME, 0);
 }
+
+int Identify(){
+   int Stype=4;
+   //If with microswitch, if yes then case with light value test, if not Stype=0
+}
+void Manipulate(bool pickup){
+   if pickup{
+      LowerLever();//Not sure necessary?
+     CloseClamp(); 
+   }
+   else{
+   RaiseLever();
+   OpenClamp();
+   }
+}
+
+void RaiseLever(){
+ //Guess what goes in here  
+}
+void LowerLever(){
+   
+}
+void OpenClamp(){
+   
+}
+void CloseClamp(){
+   
+}
+
+
