@@ -3,83 +3,53 @@
 
 bool junct = false;
 int junct_count = 0;
-int directions[9] = {RIGHT, LEFT, FORWARD, LEFT, LEFT, LEFT, RIGHT, RIGHT, LEFT};
+int directions[9] = {FORWARD, FORWARD, FORWARD, LEFT, RIGHT, LEFT, RIGHT, RIGHT, LEFT};
 
 void decide(int sensors) {
-int sensors = sensors & 0b1111; // makes sure only the sensors are read
-const float Kp = 1
-const float Kd = 0
-const float Ki = 0	// proportional, integral and derivative constants - need testing
+sensors = sensors%16; // makes sure only the sensors are read
+cout << sensors << endl;
+const float Kp = 6;
+const float Kd = 4;
+const float Ki = 2;	// proportional, integral and derivative constants - need testing
 static int prev = sensors; // holds the previous position of the line follower
 static float I = 0; // initialise integral control
-static float olderror = 0; // initialise proportional control
+static int olderror = 0; // initialise proportional control
 int errorterm = 0;
-if (sensors & 0b1000 == 0) errorterm = errorterm - 2;
-if (sensors & 0b0100 == 0) errorterm--;
-if (sensors & 0b0010 == 0) errorterm++;
-if (sensors & 0b0001 == 0) errorterm = errorterm + 2;
+if (sensors >= 8) errorterm = errorterm - 1;
+if ((sensors%8-sensors%4-sensors%2) == 4) errorterm = errorterm -2;
+if ((sensors%4-sensors%2) == 2) {errorterm = errorterm + 2;}
+if ((sensors%2) == 1) {errorterm = errorterm + 1;}
 float P = Kp*errorterm;
 I = I + errorterm*Ki;
 float D = (errorterm - olderror)*Kd;
 int control = P+I+D;
+cout << control << endl;
 bool direction = LEFT;
 if (control < 0) {
-	control = -control;
+	control = 0-control;
 	direction = RIGHT;
 }
+if (sensors == 0) control = 0;
 if (control > MAXSPEED) control = MAXSPEED;
+cout << control << endl;
 veer(direction, control);
-switch (sensors) {
-/*//Need to check which sensors are meant to be on the line, and whetherline is on or off.
-case 8*1+4*0+2*0+1*1: // central sensors detect a line
-straightRun(MAXSPEED);
-prev = sensors;
-break;
-*/
+olderror = errorterm;
 
-case 8*1+4*1+2*1+1*1: // no line detected
+switch (sensors) {
+
+case 8*0+4*0+2*0+1*0: // no line detected
 stop();
 cout << "Lost the line" << endl;
-//decide(prev);
+return;
+decide(prev);
 break;
-/*
 
-case 8*1+4*1+2*1+1*0: // rightmost sensor only
-veer(RIGHT, MAXSPEED);
-prev = sensors;
-break;
-*/
+/*
 case (8*1+4*1+2*0+1*1): case (8*1+4*0+2*1+1*1): case (8*1+4*0+2*1+1*0
 ): case (8*0+4*1+2*1+1*0): case (8*0+4*1+2*0+1*0): case (8*0+4*0+2*1+
 1*0): cout << "wtf?" << endl; decide(prev); break; //Some of these depend on how far apart the sesnors are on whether they are WTF or not. Needs Examining.
-/*
-case 8*1+4*1+2*0+1*0: // 2 sensors on the right - probably veering off the line
-veer(RIGHT, 51);
-prev = sensors;
-break;
-
-case 8*1+4*0+2*0+1*0: // 3 sensors on the right - probably at an angle
-swivel(RIGHT, 51);
-prev = sensors;
-break;
-
-case 8*0+4*1+2*1+1*1: // leftmost sensor only
-veer(LEFT, MAXSPEED);
-prev = sensors;
-break;
-
-case 8*0+4*0+2*1+1*1: // 2 sensors on left
-veer(LEFT, 51);
-prev = sensors;
-break;
-
-case 8*0+4*0+2*0+1*1: // 3 sensors on left - probs at an angle
-swivel(LEFT, 51);
-prev = sensors;
-break;
 */
-
-case 8*0+4*0+2*0+1*0: // at a junction
+case 8*1+4*1+2*1+1*1: // at a junction
 cout << "Junction detected!" << endl;
 junct = true;
 Crossroads(junct_count);
@@ -96,11 +66,23 @@ break;
 void Crossroads(int junct_count) {
 	int dir = directions[junct_count];
 	int input = 8*1+4*1+2*1+1*1;
-	while (input == 15 || input == 0) {
-		if (dir==LEFT || dir==RIGHT) veer(dir, MAXSPEED);
-		else straightRun(MAXSPEED);
-		delay(1000);
-		int input = readLF();
+		if (dir==LEFT || dir==RIGHT) {
+				fastVeer(dir, MAXSPEED);
+				delay(700);
+				input = readLF()%16;
+				cout << "hi" << endl;
+			while (input == 15 || input == 0) {
+				fastVeer(dir, MAXSPEED);
+				delay(50);
+				input = readLF()%16;
+				cout << "loopy" << endl;
+			}				
+		}
+		else 
+		while (input == 15 || input == 0) {
+		straightRun(MAXSPEED/2);
+		delay(500);
+		input = readLF()%16;
 	}
 	junct = false;
 	decide(input);	
