@@ -21,13 +21,24 @@ rlink.command(BOTH_MOTORS_GO_OPPOSITE, 128+speed);
 
 void veer(bool right, int speed){
 if (right) {
-rlink.command(MOTOR_1_GO, 128+MAXSPEED);
-rlink.command(MOTOR_2_GO, MAXSPEED-speed);
+rlink.command(MOTOR_1_GO, 128+(THROTTLE*MAXSPEED));
+rlink.command(MOTOR_2_GO, (THROTTLE*MAXSPEED)-speed);
  }
 else {
-rlink.command(MOTOR_1_GO, 255-speed);
-rlink.command(MOTOR_2_GO, MAXSPEED);
+rlink.command(MOTOR_1_GO, 128+(THROTTLE*MAXSPEED)-speed);
+rlink.command(MOTOR_2_GO, THROTTLE*MAXSPEED);
  }
+}
+
+void fastVeer(bool right, int speed) {
+if (right) {
+rlink.command(MOTOR_1_GO, 128+(0.6*MAXSPEED));
+rlink.command(MOTOR_2_GO, (0.6*MAXSPEED)-speed);
+ }
+else {
+rlink.command(MOTOR_1_GO, 128+(0.6*MAXSPEED)-speed);
+rlink.command(MOTOR_2_GO, 0.6*MAXSPEED);
+ }	
 }
 
 void swivel(bool right, int speed){
@@ -45,10 +56,11 @@ rlink.command(BOTH_MOTORS_GO_SAME, 0);
 
 int Identify(){
    int Stype=4;
+   return Stype;
    //If with microswitch, if yes then case with light value test, if not Stype=0
 }
 void Manipulate(bool pickup){
-   if pickup{
+   if (pickup){
       LowerLever();//Not sure necessary?
      CloseClamp(); 
    }
@@ -70,5 +82,7 @@ void OpenClamp(){
 void CloseClamp(){
    
 }
+
+void Advance(){}
 
 
