@@ -1,7 +1,5 @@
 #include "header.h"
 
-robot_link rlink;
-
 int main(){
 initialise();
 int go=0;
@@ -56,17 +54,17 @@ veer(RIGHT,MAXSPEED*0.9);
 delay(3000);
 break;
 
-case 10:
+/*case 10:
 //rlink.command(MOTOR_4_GO, MAXSPEED);
 rlink.command(MOTOR_3_GO, MAXSPEED);
 delay(5000);
-break;
+break; */
 
 case 11: // line following
-int input=rlink.request (READ_PORT_3);
-cout << input << endl;
+int input=readLF();
+//cout << input << endl;
 decide(input);
-delay(100);
+delay(0);
 tests(11);
 break;
 }
