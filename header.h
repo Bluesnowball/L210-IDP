@@ -9,22 +9,24 @@
 #include <vector>
 using namespace std;
 
-#define ROBOT_NUM 11
+#define ROBOT_NUM 10
 #define LEFT 0
 #define RIGHT 1
 #define FORWARD 2
 #define MAXSPEED 127
 #define REVERSE 255
+#define THROTTLE 0.9
 
 class NavInstructions{
  public:
-  string name:
-  int Indicator:
-  vector<int> Instruct:
-  vector<int> Loc: };
+  string name;
+  int Indicator;
+  vector<int> Instruct;
+  vector<int> Loc; };
 void initialise();
 void straightRun(int speed);
 void veer(bool right, int speed);
+void fastVeer(bool right, int speed);
 void swivel(bool right, int speed);
 void stop();
 void tests(int go);
