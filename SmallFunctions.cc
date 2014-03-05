@@ -32,12 +32,12 @@ rlink.command(MOTOR_2_GO, THROTTLE*MAXSPEED);
 
 void fastVeer(bool right, int speed) {
 if (right) {
-rlink.command(MOTOR_1_GO, 128+(0.6*MAXSPEED));
-rlink.command(MOTOR_2_GO, (0.6*MAXSPEED)-speed);
+rlink.command(MOTOR_1_GO, 128+(0.58*MAXSPEED));
+rlink.command(MOTOR_2_GO, (0.58*MAXSPEED)-speed);
  }
 else {
-rlink.command(MOTOR_1_GO, 128+(0.6*MAXSPEED)-speed);
-rlink.command(MOTOR_2_GO, 0.6*MAXSPEED);
+rlink.command(MOTOR_1_GO, 128+(0.58*MAXSPEED)-speed);
+rlink.command(MOTOR_2_GO, 0.58*MAXSPEED);
  }	
 }
 
