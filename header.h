@@ -15,7 +15,7 @@ using namespace std;
 #define FORWARD 2
 #define MAXSPEED 127
 #define REVERSE 255
-#define THROTTLE 0.9
+#define THROTTLE 1
 
 class NavInstructions{
  public:
