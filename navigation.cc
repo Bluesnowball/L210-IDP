@@ -1,19 +1,19 @@
 #include "header.h"
 
-int StarttoC1[2][5]={{0,0,0,0,0},{0,0,0,0,0}}; //Placeholders, also showing how initialization should work for these.
-int StarttoC2[2][5]={{0,0,0,0,0},{0,0,0,0,0}};
-int C1D1j[2][5]={{0,0,0,0,0},{0,0,0,0,0}};   //Notation: j takes it to junction before destination,
-int C2D1j[2][5]={{0,0,0,0,0},{0,0,0,0,0}};
-int jD1[2][5]={{0,0,0,0,0},{0,0,0,0,0}};       //j is instructions for fine tuning and pickup
-int jD2[2][5]={{0,0,0,0,0},{0,0,0,0,0}}; 
-int jD3[2][5]={{0,0,0,0,0},{0,0,0,0,0}}; 
-int D1jD2j[2][5]={{0,0,0,0,0},{0,0,0,0,0}};   //Dont have competition map, so cant be specific
-int D2jD3j[2][5]={{0,0,0,0,0},{0,0,0,0,0}}; 
-int D1C1[2][5]={{0,0,0,0,0},{0,0,0,0,0}}; 
-int D2C1[2][5]={{0,0,0,0,0},{0,0,0,0,0}}; 
-int D3C1[2][5]={{0,0,0,0,0},{0,0,0,0,0}}; 
-int D1Start[2][5]={{0,0,0,0,0},{0,0,0,0,0}}; 
-int D3Start[2][5]={{0,0,0,0,0},{0,0,0,0,0}}; 
+int StarttoC1[2][2]={{FORWARD,RIGHT},{0,0}}; //Placeholders, also showing how initialization should work for these.
+int StarttoC2[2][3]={{FORWARD,FORWARD,RIGHT},{0,0,0}};
+int C1D1j[2][2]={{RIGHT,FORWARD},{0,0}};   //Notation: j takes it to junction before destination,
+int C2D1j[2][1]={{RIGHT},{0}};
+int jD1[2][1]={{FORWARD},{0}};       //j is instructions for fine tuning and pickup
+int jD2[2][1]={{LEFT},{0}}; 
+int jD3[2][1]={{RIGHT},{0}}; 
+int D1jD2j[2][3]={{LEFT,FORWARD,LEFT},{0,0,0}};   //Dont have competition map, so cant be specific
+int D2jD3j[2][1]={{FORWARD},{0}}; 
+int D1C1[2][6]={{SPINBACK,LEFT,LEFT,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0}}; 
+int D2C1[2][7]={{SPINBACK,LEFT,RIGHT,RIGHT,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0}}; 
+int D3C1[2][8]={{SPINBACK,RIGHT,FORWARD,RIGHT,RIGHT,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0,0}}; 
+int D1Start[2][7]={{SPINBACK,LEFT,LEFT,FORWARD,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0}}; 
+int D3Start[2][9]={{SPINBACK,RIGHT,FORWARD,RIGHT,RIGHT,FORWARD,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0,0,0}}; 
 
 
 NavInstructions MarcoPolo(int Stype){ 
