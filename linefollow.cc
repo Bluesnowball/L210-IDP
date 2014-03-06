@@ -1,12 +1,10 @@
 #include "header.h"
-#define CHECK_BIT(var,pos) ((var) & (1<<(pos)))
 
-bool junct = false;
 int junct_count = 0;
 int directions[9] = {RIGHT, LEFT, FORWARD, LEFT, LEFT, LEFT, RIGHT, RIGHT, LEFT};
 
-void decide(int sensors) {
-sensors = sensors%16; // makes sure only the sensors are read
+void decide(int sensors) {	// line following
+sensors = sensors%16; // makes sure only the sensors are read - bits 0-3
 cout << sensors << endl;
 const float Kp = 60;
 float Kd = 40;
@@ -20,17 +18,36 @@ if (sensors >= 8) errorterm = errorterm - 1;
 if ((sensors%8-sensors%4-sensors%2) == 4) errorterm = errorterm -1;
 if ((sensors%4-sensors%2) == 2) {errorterm = errorterm + 1;}
 if ((sensors%2) == 1) {errorterm = errorterm + 1;}
-if (sensors == 1) errorterm = 3;
-if (sensors == 8) errorterm = -3;
-if (sensors ==0) {
+switch(sensors) {
+	case 1:
+	errorterm = 3;
+	break;
+	
+	case 8:
+	errorterm = -3;
+	break;
+	
+	case 0: // lost the line
 	if (prev == 1) errorterm = 4;
 	else errorterm = -4;
+	cout << "lost the line" << endl;
+	break;
+	
+	case 15: // at a junction
+	cout << "Junction detected!" << endl;
+	Crossroads(junct_count);
+	junct_count++;
+	prev = sensors;
+	break;
+	
+	default:
+	break;
 }
 float P = Kp*errorterm;
 I = I + errorterm*Ki;
 float D = (errorterm - olderror)*Kd;
-int control = P+I+D;
-cout << control << endl;
+int control = P+I+D;				// implements PID control
+cout << control << endl;			
 bool direction = RIGHT;
 if (control < 0) {
 	control = 0-control;
@@ -39,37 +56,9 @@ if (control < 0) {
 if (sensors == 0) control = 0;
 if (control > MAXSPEED) control = MAXSPEED;
 olderror = errorterm;
-if (sensors == 15) olderror = 0;
-cout << control << endl;
+if (sensors == 15) olderror = 0;		// avoids messing up derivative control at junctions
 veer(direction, control);
-if (sensors != 0) prev = sensors;
-
-switch (sensors) {
-
-case 8*0+4*0+2*0+1*0: // no line detected
-//stop();
-cout << "Lost the line" << endl;
-return;
-decide(prev);
-break;
-
-/*
-case (8*1+4*1+2*0+1*1): case (8*1+4*0+2*1+1*1): case (8*1+4*0+2*1+1*0
-): case (8*0+4*1+2*1+1*0): case (8*0+4*1+2*0+1*0): case (8*0+4*0+2*1+
-1*0): cout << "wtf?" << endl; decide(prev); break; //Some of these depend on how far apart the sesnors are on whether they are WTF or not. Needs Examining.
-*/
-case 8*1+4*1+2*1+1*1: // at a junct2ion
-cout << "Junction detected!" << endl;
-junct = true;
-Crossroads(junct_count);
-junct_count++;
-// insert pathfinding code here
-prev = sensors;
-break;
-
-default:
-break;
-}
+if (sensors != 0) prev = sensors;		// updates last position unless it's lost
 }
 
 void Crossroads(int junct_count) {
@@ -98,6 +87,5 @@ void Crossroads(int junct_count) {
 		delay(10);
 		input = readLF()%16;
 	}
-	junct = false;
 	decide(input);	
 }
