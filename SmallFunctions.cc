@@ -83,6 +83,10 @@ void CloseClamp(){
    
 }
 
-void Advance(){}
+void Advance(){
+int input=readLF();
+decide(input);
+Advance();
+}
 
 
