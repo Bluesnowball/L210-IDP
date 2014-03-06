@@ -1,17 +1,18 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include <robot_instr.h>
 #include <robot_link.h>
 #include <delay.h>
 #include <math.h>
 #include <stopwatch.h>
-#include <vector>
 using namespace std;
 
 #define ROBOT_NUM 10
 #define LEFT 0
 #define RIGHT 1
 #define FORWARD 2
+#define SPINBACK 3
 #define MAXSPEED 127
 #define REVERSE 255
 #define THROTTLE 1
@@ -29,7 +30,7 @@ void fastVeer(bool right, int speed);
 void swivel(bool right, int speed);
 void stop();
 void tests(int go);
-void decide (int sensors);
+void decide (int sensors); 		// line following
 void Crossroads(int junct_count);
 int readLF();
 NavInstructions MarcoPolo(int Stype);
