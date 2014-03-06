@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include <robot_instr.h>
 #include <robot_link.h>
 #include <delay.h>
