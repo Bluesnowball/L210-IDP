@@ -14,7 +14,7 @@ int D2C1[2][7]={{SPINBACK,LEFT,RIGHT,RIGHT,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0}
 int D3C1[2][8]={{SPINBACK,RIGHT,FORWARD,RIGHT,RIGHT,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0,0}}; 
 int D1Start[2][7]={{SPINBACK,LEFT,LEFT,FORWARD,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0}}; 
 int D3Start[2][9]={{SPINBACK,RIGHT,FORWARD,RIGHT,RIGHT,FORWARD,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0,0,0}}; 
-
+//plan b is to have single arreays per journey, not concatenating them, overall probs fewer lines.
 
 NavInstructions MarcoPolo(int Stype){ 
     NavInstructions Result;
