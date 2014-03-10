@@ -14,11 +14,16 @@ int D2C1[2][7]={{SPINBACK,LEFT,RIGHT,RIGHT,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0}
 int D3C1[2][8]={{SPINBACK,RIGHT,FORWARD,RIGHT,RIGHT,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0,0}}; 
 int D1Start[2][7]={{SPINBACK,LEFT,LEFT,FORWARD,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0}}; 
 int D3Start[2][9]={{SPINBACK,RIGHT,FORWARD,RIGHT,RIGHT,FORWARD,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0,0,0}}; 
+int testinstr[2][9]={{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
 //plan b is to have single arreays per journey, not concatenating them, overall probs fewer lines.
 
 NavInstructions MarcoPolo(int Stype){ 
     NavInstructions Result;
     vector<int> tempvector1,tempvector2,tempvector3;
+    //temp testing rig
+    Result.name="Testrig";
+      tempvector1.assign(testinstr[0], testinstr[0]+(sizeof(testinstr[0])/sizeof(testinstr[0][0])));
+     Result.Instruct.insert(Result.Instruct.end(), tempVector1.begin(), tempVector1.end());
     bool justpick=false //made true if just picked up, will need to actually be made working, currently just to show idea
     if (justpick){
     if switch (Stype){
