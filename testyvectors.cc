@@ -33,7 +33,7 @@ tempvector2.assign(C1D1j[0], C1D1j[0]+(sizeof(C1D1j[0])/sizeof(C1D1j[0][0])));
 Result.Instruct.insert(Result.Instruct.end(), tempVector1.begin(), tempVector1.end());
 Result.Instruct.insert(Result.Instruct.end(), tempvector2.begin(), tempvector2.end());
  //cout<<sizeof(StarttoC1[0])/sizeof(StarttoC1[0][0]);
- for(int i=0;i<12;i++){
+ for(int i=0;i<Result.Instruct.Size();i++){
 	 cout<<Result.Instruct[i]<<endl;
  }
  cout<<Result.Instruct.size();
