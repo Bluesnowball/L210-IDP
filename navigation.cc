@@ -1,17 +1,17 @@
 #include "header.h"
 
-int StarttoC1[2][4]={{FORWARD,RIGHT,RIGHT,PAUSE},{START,8,8,INGLIS}}; //Placeholders, also showing how initialization should work for these.
-int StarttoC2[2][3]={{FORWARD,FORWARD,RIGHT},{0,0,0}};
-int C1D1[2][5]={{SPINBACK,RIGHT, RIGHT, LEFT, PAUSE},{INGLIS,8,8,8,CEBON}}; //Notation: j takes it to junction before destination,
+int StarttoC1[2][4]={{FORWARD,RIGHT,RIGHT,PAUSE},{START,ENDOFTERM,EIETL,INGLIS}}; //Placeholders, also showing how initialization should work for these.
+int StarttoC2[2][5]={{FORWARD,RIGHT,FORWARD,RIGHT,PAUSE},{START,ENDOFTERM,EIETL,DPO,BAKER}};
+int C1D1[2][5]={{SPINBACK,RIGHT, RIGHT, LEFT, PAUSE},{INGLIS,EIETL,DPO,BAKER,CEBON}}; //Notation: j takes it to junction before destination,
 //int C2D1j[2][1]={{RIGHT},{0}};
-int C1D2[2][3]={{LEFT,FORWARD,LEFT},{0,0,0}}; //Dont have competition map, so cant be specific
+int C1D2[2][6]={{SPINBACK,RIGHT,FORWARD,LEFT,LEFT,LEFTPAUSE},{INGLIS,EIETL,DPO,WORKSHOP,K2,SUTCLIFFE}}; //Dont have competition map, so cant be specific
 //int C2D2[2][1]={{FORWARD},{0}};
-int C1D3[2][1]={{FORWARD},{0}}; 
+int C1D3[2][1]={{SPINBACK,RIGHT,FORWARD,LEFT,LEFT,FORWARD,RIGHTPAUSE},{INGLIS,EIETL,DPO,WORKSHOP,K2,MATLAB,VENKATARAMANAN}}; 
 //int C2D3[2][1]={{LEFT},{0}};
-int D1C1[2][5]={{SPINBACK,RIGHT,LEFT, LEFT,PAUSE},{CEBON,8,8,8,INGLIS}};
-int D2C1[2][7]={{SPINBACK,LEFT,RIGHT,RIGHT,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0}};
-int D3C1[2][8]={{SPINBACK,RIGHT,FORWARD,RIGHT,RIGHT,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0,0}};
-int D1Start[2][7]={{SPINBACK,LEFT,LEFT,FORWARD,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0}};
+int D1C1[2][5]={{SPINBACK,RIGHT,LEFT, LEFT,PAUSE},{CEBON,BAKER,DPO,EIETL,INGLIS}};
+int D2C1[2][7]={{SPINBACK,LEFT,RIGHT,RIGHT,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0}};//SPINBACK DOES NOT WORK HERE
+int D3C1[2][8]={{SPINBACK,RIGHT,FORWARD,RIGHT,RIGHT,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0,0}};//OR HERE ADDED NAME TO ENUM FOR THEM THOUGH, THEY ARE THUS LEFT FOR NOW
+int D1Start[2][8]={{SPINBACK,RIGHT,LEFT,FORWARD,LEFT,FOWARD,FORWARD,STOP},{CEBON,BAKER,DPO,EIETL,ENDOFTERM,20,START}};
 int D2Start[2][7]={{SPINBACK,LEFT,LEFT,FORWARD,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0}};
 int D3Start[2][9]={{SPINBACK,RIGHT,FORWARD,RIGHT,RIGHT,FORWARD,FORWARD,LEFT,FORWARD},{0,0,0,0,0,0,0,0,0}};
 int testinstr[2][9]={{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
@@ -79,6 +79,32 @@ Result.name="D1"; //copy of D1
 	tempvector1.assign(StarttoC1[0], StarttoC1[0]+(sizeof(StarttoC1[0])/sizeof(StarttoC1[0][0])));
      Result.Instruct.insert(Result.Instruct.end(), tempvector1.begin(), tempvector1.end());
      tempvector2.assign(StarttoC1[1], StarttoC1[1]+(sizeof(StarttoC1[0])/sizeof(StarttoC1[0][0])));
+          Result.Loc.insert(Result.Loc.end(), tempvector2.begin(), tempvector2.end());	
+          Result.Indicator=0;
+	}
+	else if (loc==CEBON){
+		//add time/shirt check here
+		cout<<"Going back for more Mech"<<endl;
+	tempvector1.assign(D1C1[0], D1C1[0]+(sizeof(D1C1[0])/sizeof(D1C1[0][0])));
+     Result.Instruct.insert(Result.Instruct.end(), tempvector1.begin(), tempvector1.end());
+     tempvector2.assign(D1C1[1], D1C1[1]+(sizeof(D1C1[0])/sizeof(D1C1[0][0])));
+          Result.Loc.insert(Result.Loc.end(), tempvector2.begin(), tempvector2.end());	
+          Result.Indicator=0;	
+		
+	}
+	else if (loc==SUTCLIFFE){
+			cout<<"Going back for more Mat"<<endl;
+	tempvector1.assign(D2C1[0], D2C1[0]+(sizeof(D2C1[0])/sizeof(D2C1[0][0])));
+     Result.Instruct.insert(Result.Instruct.end(), tempvector1.begin(), tempvector1.end());
+     tempvector2.assign(D2C1[1], D2C1[1]+(sizeof(D2C1[0])/sizeof(D2C1[0][0])));
+          Result.Loc.insert(Result.Loc.end(), tempvector2.begin(), tempvector2.end());	
+          Result.Indicator=0;
+	}
+	else if (loc==VENKATARAMANAN){
+		cout<<"Going back for more Comms"<<endl;
+	tempvector1.assign(D3C1[0], D3C1[0]+(sizeof(D3C1[0])/sizeof(D3C1[0][0])));
+     Result.Instruct.insert(Result.Instruct.end(), tempvector1.begin(), tempvector1.end());
+     tempvector2.assign(D3C1[1], D3C1[1]+(sizeof(D3C1[0])/sizeof(D3C1[0][0])));
           Result.Loc.insert(Result.Loc.end(), tempvector2.begin(), tempvector2.end());	
           Result.Indicator=0;
 	}
