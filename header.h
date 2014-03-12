@@ -9,8 +9,8 @@
 using namespace std;
 
 #define ROBOT_NUM 10
-enum {LEFT, RIGHT, FORWARD, SPINBACK, PAUSE, STOP};
-enum {START, INGLIS, BAKER, CEBON, SUTCLIFFE, VENKATARAMANAN};
+enum {LEFT, RIGHT, FORWARD, SPINBACK, PAUSE, STOP};//instruction enums
+enum {START, INGLIS, BAKER, CEBON, SUTCLIFFE, VENKATARAMANAN,WORKSHOP,MATLAB,CAPE,DPO,EIETL,K2,ENDOFTERM,}; // location enums
 enum {Lingerie, Green, Yellow, Invshroom, Burkha};
 #define MAXSPEED 127
 #define REVERSE 255
