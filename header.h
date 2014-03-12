@@ -9,18 +9,18 @@
 using namespace std;
 
 #define ROBOT_NUM 10
-#define LEFT 0
-#define RIGHT 1
-#define FORWARD 2
-#define SPINBACK 3
+enum {LEFT, RIGHT, FORWARD, SPINBACK, PAUSE, STOP};
+enum {START, INGLIS, BAKER, CEBON, SUTCLIFFE, VENKATARAMANAN};
+enum {Lingerie, Green, Yellow, Invshroom, Burkha};
 #define MAXSPEED 127
 #define REVERSE 255
-#define THROTTLE 1
+#define THROTTLE 0.82
+
 
 class NavInstructions{
  public:
   string name;
-  int Indicator;
+  unsigned int Indicator;
   vector<int> Instruct;
   vector<int> Loc; };
 void initialise();
@@ -33,13 +33,19 @@ void tests(int go);
 void decide (int sensors); 		// line following
 void Crossroads(int junct_count);
 int readLF();
-NavInstructions MarcoPolo(int Stype);
+NavInstructions MarcoPolo(int Stype,bool justpick,int loc);
 int Identify();
 void Manipulate(bool pickup);
 void RaiseLever();
 void LowerLever();
-void OpenClamp();
+void OpenClamp(int timelength);
 void CloseClamp();
-void Lost();
+int Lost(int prev);
 void ProfligateNavigate(NavInstructions Instr);
 void Advance();
+int readDistance();
+int readLight();
+void lightLEDs(bool led1,bool led2, bool led3, bool led4);
+bool readuSwitch();
+
+extern NavInstructions ShiningPath;
