@@ -15,19 +15,23 @@ void initialise() {
 }
 
 void straightRun(int speed){
-rlink.command (RAMP_TIME, 255);
+//rlink.command (RAMP_TIME, 255);
 rlink.command(BOTH_MOTORS_GO_OPPOSITE, 128+speed);
 }
 
 void veer(bool right, int speed){
-if (right) {
-rlink.command(MOTOR_1_GO, 128+(THROTTLE*MAXSPEED));
-rlink.command(MOTOR_2_GO, (THROTTLE*MAXSPEED)-speed);
- }
-else {
-rlink.command(MOTOR_1_GO, 128+(THROTTLE*MAXSPEED)-speed);
-rlink.command(MOTOR_2_GO, THROTTLE*MAXSPEED);
- }
+	rlink.command (RAMP_TIME, 0);
+switch (right) {
+	case true:
+	rlink.command(MOTOR_1_GO, 128+(THROTTLE*MAXSPEED));
+	rlink.command(MOTOR_2_GO, (THROTTLE*MAXSPEED)-speed);
+	break;
+	
+	case false:
+	rlink.command(MOTOR_1_GO, 128+(THROTTLE*MAXSPEED)-speed);
+	rlink.command(MOTOR_2_GO, THROTTLE*MAXSPEED);
+	break;
+}
 }
 
 void fastVeer(bool right, int speed) {
@@ -55,13 +59,36 @@ rlink.command(BOTH_MOTORS_GO_SAME, 0);
 }
 
 int Identify(){
-	enum Stype {Lingerie, Green, Yellow, Invshroom, Burkha};
-	int Stype=Burkha;
-	int lightlv = readLight();
-	if (lightlv >= 80) Stype = Yellow;
-	if (lightlv >= 140) Stype = Green;
-	if (lightlv >= 160) Stype = Invshroom;
-	if (lightlv >= 190) Stype = Lingerie;
+enum Stype {Lingerie, Green, Yellow, Invshroom, Burkha};
+int Stype=Burkha;
+int lightlv = readLight();
+cout << "there are " << lightlv << " lights" << endl;
+if (lightlv >= 40) Stype = Yellow;
+if (lightlv >= 105) Stype = Green;
+if (lightlv >= 120) Stype = Invshroom;
+if (lightlv >= 160) Stype = Lingerie;
+if (lightlv < 40) Stype = Invshroom; // red dots
+switch (Stype) {
+	case Yellow:
+	lightLEDs(true, false, false, false);
+	break;
+	
+	case Green:
+	lightLEDs(false, false, true, false);
+	break;
+
+	case Invshroom:
+	lightLEDs(false, true, false, false);
+	break;
+
+	case Lingerie:
+	lightLEDs(true, false, false, true);
+	break;
+
+	case Burkha:
+	lightLEDs(true, true, true, true);
+	break;				
+	}
 	return Stype;
 }
 
@@ -72,7 +99,7 @@ void Manipulate(bool pickup){
      RaiseLever();
    }
    else{
-   OpenClamp(4000);
+   OpenClamp(10000);
    }
 }
 
@@ -97,7 +124,7 @@ void CloseClamp(){
    rlink.command(MOTOR_3_GO, 128+MAXSPEED);
    while(readuSwitch() == true) delay(20);
    cout<<"Switched"<<endl;
-   delay(1200);
+   delay(1500);
    rlink.command(MOTOR_3_GO, 0);
 }
 
