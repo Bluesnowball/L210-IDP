@@ -10,11 +10,11 @@ using namespace std;
 
 #define ROBOT_NUM 10
 enum {LEFT, RIGHT, FORWARD, SPINBACK, PAUSE, STOP,LEFTPAUSE,RIGHTPAUSE,LEFTSPINBACK,RIGHTSPINBACK};//instruction enums
-enum {START, INGLIS, BAKER, CEBON, SUTCLIFFE, VENKATARAMANAN,WORKSHOP,MATLAB,CAPE,DPO,EIETL,K2,ENDOFTERM,}; // location enums
+enum {START, INGLIS, BAKER, CEBON, SUTCLIFFE, VENKATARAMANAN,WORKSHOP,MATLAB,CAPE,DPO,EIETL,K2,ENDOFTERM}; // location enums
 enum {Lingerie, Green, Yellow, Invshroom, Burkha};
 #define MAXSPEED 127
 #define REVERSE 255
-#define THROTTLE 0.82
+#define THROTTLE 1
 
 
 class NavInstructions{
@@ -49,3 +49,4 @@ void lightLEDs(bool led1,bool led2, bool led3, bool led4);
 bool readuSwitch();
 
 extern NavInstructions ShiningPath;
+extern int Stype;
